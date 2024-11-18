@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .input-group label {
+            width: 40%;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 55%;
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .input-group select {
+            cursor: pointer;
+        }
+
+        .input-group button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .input-group button:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            display: none;
+        }
+
+        .phone-number-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .phone-number-container select,
+        .phone-number-container input {
+            width: 48%;
+        }
+
+    </style>
+</head>
+<body>
+    <h2 id="form-title">Enter Your Details</h2>
+    <div class="form-container">
+        <form id="guest-form">
+            <!-- First Name -->
+            <div class="input-group">
+                <label for="first-name" id="label-first-name">First Name</label>
+                <input type="text" id="first-name" name="first_name" required>
+            </div>
+
+            <!-- Last Name -->
+            <div class="input-group">
+                <label for="last-name" id="label-last-name">Last Name</label>
+                <input type="text" id="last-name" name="last_name" required>
+            </div>
+
+            <!-- Gender -->
+            <div class="input-group">
+                <label for="gender" id="label-gender">Gender</label>
+                <select id="gender" name="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- Country -->
+            <div class="input-group">
+                <label for="country" id="label-country">Country</label>
+                <select id="country" name="country" required>
+                    <option value="morocco">Morocco</option>
+                    <option value="spain">Spain</option>
+                    <option value="france">France</option>
+                    <option value="portugal">Portugal</option>
+                    <option value="algeria">Algeria</option>
+                    <option value="tunisia">Tunisia</option>
+                    <option value="mauritania">Mauritania</option>
+                    <option value="us">United States</option>
+                </select>
+            </div>
+
+            <!-- City -->
+            <div class="input-group">
+                <label for="city" id="label-city">City</label>
+                <input type="text" id="city" name="city" required>
+            </div>
+
+            <!-- Phone Number with Country Code -->
+            <div class="input-group phone-number-container">
+                <select id="country_code" name="country_code" required>
+                    <option value="+212">🇲🇦 +212</option>
+                    <option value="+34">🇪🇸 +34</option>
+                    <option value="+33">🇫🇷 +33</option>
+                    <option value="+351">🇵🇹 +351</option>
+                    <option value="+213">🇩🇿 +213</option>
+                    <option value="+216">🇹🇳 +216</option>
+                    <option value="+222">🇲🇷 +222</option>
+                    <option value="+1">🇺🇸 +1</option>
+                </select>
+                <input type="text" id="phone_number" name="phone_number" placeholder="Your Phone Number" required>
+            </div>
+
+            <!-- Email (Optional) -->
+            <div class="input-group">
+                <label for="email" id="label-email">Email Address (Optional)</label>
+                <input type="email" id="email" name="email">
+            </div>
+
+            <div class="input-group">
+                <button type="submit" id="submit-btn">Submit</button>
+            </div>
+
+            <div class="error-message" id="error-message">Please enter a valid phone number.</div>
+        </form>
+    </div>
+
+    <script>
+        // Detect the user's language
+        var userLanguage = navigator.language || navigator.userLanguage;
+        console.log("Detected language: " + userLanguage);
+
+        // Function to change text based on language
+        function setLanguage(language) {
+            if (language.startsWith('es')) { // Spanish
+                document.getElementById('form-title').innerText = 'Ingrese sus detalles';
+                document.getElementById('label-first-name').innerText = 'Nombre';
+                document.getElementById('label-last-name').innerText = 'Apellido';
+                document.getElementById('label-gender').innerText = 'Género';
+                document.getElementById('label-country').innerText = 'País';
+                document.getElementById('label-city').innerText = 'Ciudad';
+                document.getElementById('label-email').innerText = 'Correo electrónico (Opcional)';
+                document.getElementById('submit-btn').innerText = 'Enviar';
+                document.getElementById('error-message').innerText = 'Por favor ingrese un número de teléfono válido.';
+            } else if (language.startsWith('fr')) { // French
+                document.getElementById('form-title').innerText = 'Entrez vos détails';
+                document.getElementById('label-first-name').innerText = 'Prénom';
+                document.getElementById('label-last-name').innerText = 'Nom de famille';
+                document.getElementById('label-gender').innerText = 'Genre';
+                document.getElementById('label-country').innerText = 'Pays';
+                document.getElementById('label-city').innerText = 'Ville';
+                document.getElementById('label-email').innerText = 'Email (Optionnel)';
+                document.getElementById('submit-btn').innerText = 'Soumettre';
+                document.getElementById('error-message').innerText = 'Veuillez entrer un numéro de téléphone valide.';
+            } else { // Default to English
+                document.getElementById('form-title').innerText = 'Enter Your Details';
+                document.getElementById('label-first-name').innerText = 'First Name';
+                document.getElementById('label-last-name').innerText = 'Last Name';
+                document.getElementById('label-gender').innerText = 'Gender';
+                document.getElementById('label-country').innerText = 'Country';
+                document.getElementById('label-city').innerText = 'City';
+                document.getElementById('label-email').innerText = 'Email Address (Optional)';
+                document.getElementById('submit-btn').innerText = 'Submit';
+                document.getElementById('error-message').innerText = 'Please enter a valid phone number.';
+            }
+        }
+
+        // Set language based on the user's device language
+        setLanguage(userLanguage);
+
+        // Form submission handler (with phone validation)
+        document.getElementById('guest-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission for validation
+
+            var phonePattern = /^\d{6,12}$/; // Adjust as needed
+            var phoneNumber = document.getElementById('phone_number').value;
+            if (!phonePattern.test(phoneNumber)) {
+                document.getElementById('error-message').style.display = 'block';
+                return;
+            }
+
+            alert('Form Submitted Successfully');
+            // Implement logic to handle form
